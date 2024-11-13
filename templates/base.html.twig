@@ -15,10 +15,12 @@
 			<main>
 			{% block body %}{% endblock %}
 			</main>
-			{% block javascripts %}
+			{# {% block javascripts %}
 				{% block importmap %}
 					{{ importmap('app') }}
 				{% endblock %}
-			{% endblock %}
+			{% endblock %} #}
+			{{ encore_entry_script_tags('app') }}
+        {% block javascripts %}{% endblock %}
 		</body>
 	</html>
