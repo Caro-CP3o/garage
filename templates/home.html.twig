@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="jumbotron text-center py-5 mt-5" style="background-color: var(--primary-light); color: var(--primary-dark);">
+			<div class="glass-effect">
+				<h1 class="display-3 mb-3">Bienvenue chez Wheels !</h1>
+				<h2>Alors, ça roule ?</h2>
+				<p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Exercitationem adipisci minima ullam, perspiciatis repudiandae dolorum error dolorem illum aperiam voluptate?</p>
+				<a href="{{path('cars_index')}}" class="btn btn-primary btn-lg my-4" role="button">Nos Voitures</a>
+			</div>
+		</div>
+
+		<h2 class="mt-5 mb-4 text-center">Nos dernières annonces</h2>
+
+		<div class="row">
+			{% for car in cars|slice(-2, 2) %}
+				<div class="col-md-6">
+					<div class="card primary-dark mb-3">
+						<div class="card-header text-center">
+							<a href="{{ path('car_brand_show', {'brandName': car.brand.name | lower | replace({' ': '-'}) }) }}">
+								{{ car.brand.name }}
+							</a>
+							{{ car.model }},
+							<strong>{{ car.price }}€</strong>
+						</div>
+						<div class="image">
+							<img src="{{ car.coverImage }}" alt="Image de la voiture {{ car.model }}" class="rounded mb-3 starsimg">
+						</div>
+						<div class="card-body text-center">
+							<h4 class="card-title">{{ car.mileage }}
+								Km</h4>
+							<a href="{{ path('car_show', { slug: car.slug }) }}" class="btn btn-success">En savoir plus</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

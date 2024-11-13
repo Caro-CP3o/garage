@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonce:
+	{{ car.model }}
+{% endblock %}
+
+{% block body %}
+	<!-- Banner: affiche la cover la marque et le prix + lien vers achat-->
+	<div class="banner" style="background-image: url({{ car.coverImage }});">
+		<div class="container">
+			<div class="glass-effect">
+				<h1>{{ car.brand.name }}
+					{{ car.model }}
+				</h1>
+				<p class="h2">
+					<strong>{{ car.price }}</strong>€
+				</p>
+				<a href="#" class="btn btn-primary">Acheter</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container mt-4">
+		<div
+			class="row">
+			<!-- Carousel: affiche les images associées de l'entité Image + le nom du modèle et le caption de l'image-->
+			<div class="col-md-8 mb-3">
+				<div class="bd-example mt-3">
+					<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+						<div class="carousel-indicators">
+							{% for image in car.images %}
+								<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" aria-current="true" {% endif %} aria-label="Slide {{ loop.index }}"></button>
+							{% endfor %}
+						</div>
+						<div class="carousel-inner">
+							{% for image in car.images %}
+								<div class="carousel-item {% if loop.first %}active{% endif %}">
+									<img src="{{ image.url }}" class="d-block w-100" alt="{{ image.caption }}">
+									<div class="carousel-caption d-none d-md-block">
+										<div class="glass-effect">
+											<h5>{{ car.model }}</h5>
+											<p>{{ image.caption }}</p>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Specifications: affiche toutes les infos de l'entité Cars -->
+			<div class="col-md-4">
+				<h3>Description:</h3>
+				<p>{{ car.description }}</p>
+				<h3>Specifications:</h3>
+				<ul>
+					<li>
+						<strong>Année:</strong>
+						{{ car.year }}</li>
+					<li>
+						<strong>KM:</strong>
+						{{ car.mileage }}</li>
+					<li>
+						<strong>ONombre de propriétaires:</strong>
+						{{ car.owner }}</li>
+					<li>
+						<strong>Capacité moteur:</strong>
+						{{ car.engine }}
+						L</li>
+					<li>
+						<strong>Chevaux:</strong>
+						{{ car.horse }}
+						HP</li>
+					<li>
+						<strong>Type de fuel:</strong>
+						{{ car.fuel }}</li>
+					<li>
+						<strong>Transmission:</strong>
+						{{ car.transmission }}</li>
+					<li>
+						<strong>Options:</strong>
+						{{ car.options }}</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Marque: affiche la marque + lien vers la page profil de la marque et le lien vers la liste des modèles de la marque avec le nombre de modèles dispo -->
+		<div class="row mt-4 brand">
+			<div class="col-4">
+				<img src="https://picsum.photos/64/64" alt="brand logo">
+			</div>
+			<div class="col">
+				<h3>
+					<a href="{{ path('car_brand_show', {'brandName': car.brand.name | lower | replace({' ': '-'}) }) }}">
+						{{ car.brand.name }}
+					</a>
+				</h3>
+				<a href="{{ path('car_brand_models', {'brandName': car.brand.name | lower | replace({' ': '-'}) }) }}">
+					<span class="badge badge-secondary">
+						{{ car.brand.cars | length }}
+						autres modèles
+					</span>
+				</a>
+				<p>{{ car.description }}</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Nos Voitures
+{% endblock %}
+
+{% block body %}
+ 	<div class="container">
+		<div class="row">
+			{# Affiche la liste de toutes les voitures avec : marque, modèle, prix, kilométrage, cover et lien vers la fiche produit #}
+			{% for car in cars %}
+				<div class="col-md-4">
+					<div class="card bg-light mb-3">
+						<div class="card-header text-center">
+							<a href="{{ path('car_brand_show', {'brandName': car.brand.name | lower | replace({' ': '-'}) }) }}">
+								{{ car.brand.name }}
+							</a>
+							{{ car.model }},
+							<strong>{{ car.price }}€</strong>
+						</div>
+						<div class="image">
+							<img src="{{ car.coverImage }}" alt="Image de la voiture {{ car.model }}" class="starsimg">
+						</div>
+						<div class="card-body">
+							<div class="card-title">
+								{{ car.mileage }}
+								Km
+							</div>
+							<a href="{{ path('car_show', { slug: car.slug }) }}" class="btn btn-secondary">En savoir plus</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

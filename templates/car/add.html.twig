@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block title %}Ajouter une nouvelle annonce: {% endblock %}
+
+{# {% form_theme myForm 'bootstrap_5_layout.html.twig' %} -- on utilise le template _colletion et plus le theme par defaut #}
+
+{% form_theme myForm 'car/_collection.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h1>Add new car:</h1>
+    {{ form_start(myForm) }}
+
+        {{ form_widget(myForm) }}
+        <button type="submit" class="btn btn-primary mt-3">Ajouter une voiture</button>
+
+    {{ form_end(myForm) }}
+
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }} {# Garde e/les scripts de base template #}
+    {{ encore_entry_script_tags('annonce') }}
+{% endblock %}
