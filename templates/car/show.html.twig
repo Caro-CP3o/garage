@@ -15,7 +15,14 @@
 				<p class="h2">
 					<strong>{{ car.price }}</strong>€
 				</p>
-				<a href="#" class="btn btn-primary">Acheter</a>
+				
+				{% if app.user %}
+					<a href="{{ path('car_edit', { slug: car.slug }) }}">
+					<span class="badge badge-secondary">Modifier</span>
+					</a>
+				{% else %}
+					<a href="#" class="btn btn-primary">Acheter</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>

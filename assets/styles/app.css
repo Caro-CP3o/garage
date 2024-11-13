@@ -181,6 +181,10 @@ h2 {
   height: 45vh;
   overflow: hidden;
 }
+.badge {
+  position: relative;
+  z-index: 1000;
+}
 .badge-secondary {
   background-color: #eda3cb;
   color: #fff;
