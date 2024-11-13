@@ -28,7 +28,6 @@ class AccoutController extends AbstractController
         $error = $utils->getLastAuthenticationError();
         $username = $utils->getLastUsername();
         $loginError = null;
-        dump($error);
         if($error instanceof TooManyLoginAttemptsAuthenticationException)
         {
             // L'erreur est due à la limitation de la connexion (login throttling)
