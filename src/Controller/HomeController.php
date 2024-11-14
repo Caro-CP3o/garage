@@ -9,6 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+    /**
+     * Permet de récupérer toutes les voitures
+     * @param \App\Repository\CarsRepository $repo
+     * @return \Symfony\Component\HttpFoundation\Response
+     * La même chose avec injection de dépendance
+     */
     #[Route('/', name: 'home')]
     // public function index(EntityManagerInterface $entityManager): Response
     // {
@@ -18,12 +24,6 @@ class HomeController extends AbstractController
     //         'cars' => $cars,
     //     ]);
     // } on utilise le Repository à la place de l'entityManager = injection de dépendance
-    /**
-     * Permet de récupérer toutes les voitures
-     * @param \App\Repository\CarsRepository $repo
-     * @return \Symfony\Component\HttpFoundation\Response
-     * La même chose avec injection de dépendance
-     */
     public function index(CarsRepository $repo): Response
     {
         // récupère toutes les données de la table Cars dans la bdd

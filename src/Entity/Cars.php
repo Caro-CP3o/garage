@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\CarsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CarsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CarsRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[UniqueEntity(fields: ['model'], message: "Une autre voiture possède déjà ce modèle, merci de le modifier")]
 class Cars
 {
     #[ORM\Id]
@@ -31,6 +34,7 @@ class Cars
     private ?int $mileage = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 100, minMessage: "Le titre doit faire au moins {{ limit }} caractères")]
     private ?string $description = null;
 
     public function getId(): ?int
@@ -38,21 +42,6 @@ class Cars
         return $this->id;
     }
 
-    // public function getBrand(): ?string
-    // {
-    //     return $this->brand;
-    // }
-
-    // public function setBrand(string $brand): static
-    // {
-    //     $this->brand = $brand;
-
-    //     return $this;
-    // }
-
-    // #[ORM\ManyToOne(targetEntity: Brand::class)]
-    // #[ORM\JoinColumn(nullable: false)]
-    // private ?Brand $brand = null;
     #[ORM\ManyToOne(targetEntity: Brand::class, cascade: ["persist"])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Brand $brand = null;
@@ -87,11 +76,10 @@ class Cars
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $options = null;
 
-
-
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
-    public function initializeSlug(): void{
+    public function initializeSlug(): void
+    {
         if (empty($this->slug)) {
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->model);

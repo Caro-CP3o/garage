@@ -53,8 +53,8 @@ class BrandFixtures extends Fixture
             [$name, $country, $founded] = $data;
             $brand = new Brand();
             $brand->setName($name)
-                  ->setCountry($country)
-                  ->setFounded($founded);
+                ->setCountry($country)
+                ->setFounded($founded);
 
             $manager->persist($brand);
 

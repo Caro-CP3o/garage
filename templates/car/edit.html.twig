@@ -1,17 +1,22 @@
 {% extends 'base.html.twig' %}
-{% block title %}Modification de l'annonce: {{ car.model }}{% endblock %}
+{% block title %}Modification de l'annonce:
+	{{ car.model }}
+{% endblock %}
 
 {% form_theme myForm 'car/_collection.html.twig' %}
 {% block body %}
-    <div class="container">
-        <h1>Modification de l'annonce: <strong>{{ car.model }}</strong></h1>
-        {{ form_start(myForm) }}
-            {{form_widget(myForm)}}
-            <button type="submit" class="btn btn-warning mt-3">Modifier</button>
-        {{ form_end(myForm) }}
-    </div>
+	<div class="container">
+		<h1>Modification de l'annonce:
+			<strong>{{ car.model }}</strong>
+		</h1>
+		{{ form_start(myForm) }}
+		{{form_widget(myForm)}}
+		<button type="submit" class="btn btn-warning mt-3">Modifier</button>
+		{{ form_end(myForm) }}
+	</div>
 {% endblock %}
 {% block javascripts %}
-    {{ parent() }} {# Keep any scripts from the base template #}
-    {{ encore_entry_script_tags('annonce') }}
+	{{ parent() }}
+	{# Keep any scripts from the base template #}
+	{{ encore_entry_script_tags('annonce') }}
 {% endblock %}

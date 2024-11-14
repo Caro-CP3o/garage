@@ -1,27 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ brand.name }}{% endblock %}
+{% block title %}
+	{{ brand.name }}
+{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Brand Logo -->
-                <img src="https://picsum.photos/64/64" alt="{{ brand.name }} logo" class="img-fluid mb-4">
-            </div>
-            <div class="col-md-6">
-                <!-- Brand Information -->
-                <h1>{{ brand.name }}</h1>
-                <p><strong>Pays:</strong> {{ brand.country }}</p>
-                <p><strong>Fondé en:</strong> {{ brand.founded }}</p>
-                
-                <!-- Link to Models Page -->
-                <a href="{{ path('car_brand_models', {'brandName': brand.name | lower | replace({' ': '-'}) }) }}" class="btn btn-primary">
-                    Voir tous les modèles ({{ brand.cars | length }})
-                </a>
-            </div>
-        </div>
+	<div class="container mt-5">
+		<div class="row">
+			<div
+				class="col-md-6">
+				<!-- Brand Logo -->
+				<img src="https://picsum.photos/64/64" alt="{{ brand.name }} logo" class="img-fluid mb-4">
+			</div>
+			<div
+				class="col-md-6">
+				<!-- Brand Information -->
+				<h1>{{ brand.name }}</h1>
+				<p>
+					<strong>Pays:</strong>
+					{{ brand.country }}</p>
+				<p>
+					<strong>Fondé en:</strong>
+					{{ brand.founded }}</p>
 
-        <hr>
-    </div>
+				<!-- Link to Models Page -->
+				<a href="{{ path('car_brand_models', {'brandName': brand.name | lower | replace({' ': '-'}) }) }}" class="btn btn-primary">
+					Voir tous les modèles ({{ brand.cars | length }})
+				</a>
+			</div>
+		</div>
+
+		<hr>
+	</div>
 {% endblock %}

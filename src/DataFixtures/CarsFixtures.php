@@ -4,13 +4,13 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Cars;
-use App\Entity\Brand;
 use App\Entity\Image;
 use Cocur\Slugify\Slugify;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use GuzzleHttp\Client;
 use Symfony\Component\Filesystem\Filesystem;
+// use App\Entity\Brand;
 
 class CarsFixtures extends Fixture
 {
@@ -93,8 +93,8 @@ class CarsFixtures extends Fixture
                 $randomImagePath = '/images/cars/car_image_' . rand(0, count($localImageFiles) - 1) . '.jpg';
 
                 $image->setUrl($randomImagePath)
-                      ->setCaption($faker->sentence())
-                      ->setCar($car);
+                    ->setCaption($faker->sentence())
+                    ->setCar($car);
 
                 $manager->persist($image);
             }

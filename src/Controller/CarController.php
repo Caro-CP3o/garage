@@ -3,19 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Cars;
-use App\Entity\Image;
 use App\Form\CarType;
 use App\Repository\CarsRepository;
 use App\Repository\BrandRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\ExpressionLanguage\Expression;
+// use App\Entity\Image;
+// use Symfony\Bridge\Doctrine\Attribute\MapEntity;
+// use Doctrine\Persistence\ManagerRegistry;
+// use Symfony\Component\ExpressionLanguage\Expression;
 
 class CarController extends AbstractController
 {
@@ -36,14 +36,14 @@ class CarController extends AbstractController
         ]);
     }
 
-    #[Route('/car/add', name: "car_create")]
-    #[IsGranted("ROLE_ADMIN")]
     /**
      * Permet l'ajout d'une voiture via formulaire
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Doctrine\ORM\EntityManagerInterface $manager
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/car/add', name: "car_create")]
+    #[IsGranted("ROLE_ADMIN")]
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $car = new Cars();
@@ -78,8 +78,6 @@ class CarController extends AbstractController
     }
 
 
-    #[Route("car/{slug}/edit", name: "car_edit")]
-    #[IsGranted("ROLE_ADMIN")]
     /**
      * Permet l'édition d'une annonce via formulaire
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -87,6 +85,8 @@ class CarController extends AbstractController
      * @param \App\Entity\Cars $car
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route("car/{slug}/edit", name: "car_edit")]
+    #[IsGranted("ROLE_ADMIN")]
     public function edit(Request $request, EntityManagerInterface $manager, Cars $car): Response
     {
         $form = $this->createForm(CarType::class, $car);
@@ -119,7 +119,6 @@ class CarController extends AbstractController
         ]);
     }
 
-    #[Route('/car/brand/{brandName}/models', name: 'car_brand_models')]
     /**
      * Liste tous les modèles d'une marque
      * @param string $brandName
@@ -127,6 +126,7 @@ class CarController extends AbstractController
      * @param BrandRepository $brandRepo
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/car/brand/{brandName}/models', name: 'car_brand_models')]
     public function listBrandModels(string $brandName, CarsRepository $repo, BrandRepository $brandRepo): Response
     {
         // Trouve la marque correspondante
@@ -145,13 +145,13 @@ class CarController extends AbstractController
         ]);
     }
 
-    #[Route('/car/brand/{brandName}', name: 'car_brand_show')]
     /**
      * Permet d'afficher une marque et ses infos
      * @param string $brandName
      * @param \App\Repository\BrandRepository $brandRepo
      * @return \Symfony\Component\HttpFoundation\Response
      */
+    #[Route('/car/brand/{brandName}', name: 'car_brand_show')]
     public function showBrand(string $brandName, BrandRepository $brandRepo): Response
     {
         // Trouve la marque correspondante

@@ -67,7 +67,7 @@ class Brand
     }
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Cars::class)]
     private Collection $cars;
-
+    
     public function __construct()
     {
         $this->cars = new ArrayCollection();

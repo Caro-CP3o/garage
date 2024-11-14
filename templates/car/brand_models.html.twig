@@ -1,34 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modèles pour :  {{ brand.name }}{% endblock %}
+{% block title %}Modèles pour :
+	{{ brand.name }}
+{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h1 class="my-4">Models for {{ brand.name }}</h1>
-        
-        <!-- Affiche le nombre de modèle pour la marque -->
-        <p>Nous avons <strong>{{ cars | length }}</strong> modèles disponibles pour cette marque</p>
+	<div class="container">
+		<h1 class="my-4">Models for
+			{{ brand.name }}</h1>
 
-        <div class="row">
-            {% for car in cars %}
-                <div class="col-md-4 mb-4">
-                    <div class="card bg-light">
-                        <div class="card-header text-center">
-                            <h5>{{ car.model }}</h5>
-                            <strong>{{ car.price }}€</strong>
-                        </div>
-                        <div class="image">
-                            <img src="{{ car.coverImage }}" alt="Image de la voiture {{ car.model }}" class="img-fluid">
-                        </div>
-                        <div class="card-body">
-                            <div class="card-title">
-                                <p>{{ car.mileage }} Km</p>
-                            </div>
-                            <a href="{{ path('car_show', { slug: car.slug }) }}" class="btn btn-secondary">En savoir plus</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+		<!-- Affiche le nombre de modèle pour la marque -->
+		<p>Nous avons
+			<strong>{{ cars | length }}</strong>
+			modèles disponibles pour cette marque</p>
+
+		<div class="row">
+			{% for car in cars %}
+				<div class="col-md-4 mb-4">
+					<div class="card bg-light">
+						<div class="card-header text-center">
+							<h5>{{ car.model }}</h5>
+							<strong>{{ car.price }}€</strong>
+						</div>
+						<div class="image">
+							<img src="{{ car.coverImage }}" alt="Image de la voiture {{ car.model }}" class="img-fluid">
+						</div>
+						<div class="card-body">
+							<div class="card-title">
+								<p>{{ car.mileage }}
+									Km</p>
+							</div>
+							<a href="{{ path('car_show', { slug: car.slug }) }}" class="btn btn-secondary">En savoir plus</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
